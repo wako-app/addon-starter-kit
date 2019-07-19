@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      {{movie ? movie.title : show.title + ' ' + episode.code}}
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button color="light" (click)="dismiss()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card>
+    <ion-card-content *ngIf="movie">
+      <ion-button (click)="openImdb(movie.imdbId)">
+        Open on Imdb
+      </ion-button>
+    </ion-card-content>
+    <ion-card-content *ngIf="show">
+      <ion-button (click)="openImdb(show.imdbId)">
+        Open on Imdb
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

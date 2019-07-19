@@ -1,0 +1,19 @@
+{
+  "$schema": "../../../node_modules/@wako-app/mobile-sdk/dist/manifest-schema.json",
+  "version": "1.0.0",
+  "id": "plugin.my-plugin",
+  "name": "My First Plugin",
+  "description": "Will make your life better",
+  "author": "wako",
+  "actions": ["movies", "episodes"],
+  "entryPoint": "/plugin.js",
+  "languages": {
+    "en": "/i18n/en.json",
+    "fr": "/i18n/fr.json"
+  },
+  "changeLogs": {
+    "1.0.0": "Final version",
+    "0.9.0": "Improve performance",
+    "0.0.1": "Initial Version"
+  }
+}
