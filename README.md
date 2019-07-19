@@ -25,3 +25,11 @@ The code in `./src`, it's only for dev purpose to simulate wako.
 
 Your entry point will be `./projects/plugin/src/plugin/plugin.module.ts` where you defined the component you want to see in wako.
 
+
+
+> ### Test your add-on
+
+There are two way to test your add-on:
+- npm start, will run behind the scene ng serve. This is the fastest way to test your add-on will you keep developing it
+- npm run start:wako-like, this will build your add-on and the app will consume it like wako does. This is the recommended method
+once you think your add-on is ready to publish. You can still edit your code this way, but it will take more time to refresh the page since the build process could be long

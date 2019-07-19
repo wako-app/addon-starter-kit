@@ -10,7 +10,6 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "clean": "rm -rf ./dist",
-    "build:builders": "tsc -p builders/tsconfig.builders.json",
     "watch:plugin": "gulp watch",
     "build:plugin:dev": "ng build --project plugin --prod  --outputPath=src/assets/plugins && npm run copy:resources:dev",
     "copy:resources:dev": "cp projects/plugin/src/manifest.json ./src/assets/plugins && cp -r projects/plugin/src/i18n ./src/assets/plugins",
