@@ -33,3 +33,11 @@ There are two way to test your add-on:
 - `npm start`, will run behind the scene ng serve. This is the fastest way to test your add-on will you keep developing it
 - `npm run start:wako-like`, this will build your add-on and the app will consume it like wako does. This is the recommended method
 once you think your add-on is ready to publish. You can still edit your code this way, but it will take more time to refresh the page since the build process could be long
+
+
+### Test your add-on on wako
+
+Now that you think your add-on is completely finished, it's time to test it on your mobile. To do so, edit the file `package.json` and replace the `X.X.X.X` with your computer local IP.
+Then run this command: `npm run serve:wako-like`. This will act exactly as `npm run start:wako-like` but will make the project accessible via any devices in your local network.
+Then install the add-on inside wako via your manifest.json URL, like: `http://X.X.X.X:4200/assets/plugins/manifest.json` where `X.X.X.X` is your own IP address.
+`
