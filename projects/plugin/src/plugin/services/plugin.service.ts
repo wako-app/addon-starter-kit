@@ -26,4 +26,6 @@ export class PluginService extends PluginBaseService {
     this.translate.use(lang);
     this.translate.setTranslation(lang, translations);
   }
+
+  customAction(action: string, data: any): any {}
 }

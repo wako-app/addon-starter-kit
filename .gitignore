@@ -33,4 +33,5 @@ $RECYCLE.BIN/
 Thumbs.db
 UserInterfaceState.xcuserstate
 
-projects/wako-like/src/assets/plugins/*
+src/assets/plugins/*
+projects/plugin/src/providers.json
