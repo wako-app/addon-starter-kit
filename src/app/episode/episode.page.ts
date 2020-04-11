@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { Episode, PluginLoaderService, Show } from '@wako-app/mobile-sdk';
+import { PluginLoaderService } from '../services/plugin-loader.service';
+import { Episode, Show } from '@wako-app/mobile-sdk';
 
 @Component({
   selector: 'app-tab1',
@@ -7,28 +8,32 @@ import { Episode, PluginLoaderService, Show } from '@wako-app/mobile-sdk';
   styleUrls: ['episode.page.scss']
 })
 export class EpisodePage implements OnInit {
-  @ViewChild('episodeRef', {read: ViewContainerRef, static: true})
+  @ViewChild('episodeRef', { read: ViewContainerRef, static: true })
   episodeVCRef: ViewContainerRef;
 
-  constructor(private pluginLoader: PluginLoaderService) {
-  }
+  @ViewChild('episodeItemOptionRef', { read: ViewContainerRef, static: true })
+  episodeItemOptionVCRef: ViewContainerRef;
+
+  @ViewChild('showRef', { read: ViewContainerRef, static: true })
+  showVCRef: ViewContainerRef;
+
+  data: { show: Show; episode: Episode };
+
+  constructor(private pluginLoader: PluginLoaderService) {}
 
   ngOnInit() {
+    this.data = JSON.parse(
+      `{"show":{"title":"The Witcher","year":2019,"imdbId":"tt5180504","tmdbId":71912,"tvdbId":362696,"traktId":138163,"slug":"the-witcher-2019","overview":"Geralt of Rivia, a mutated monster-hunter for hire, journeys toward his destiny in a turbulent world where people often prove more wicked than beasts.","trailer":"http://youtube.com/watch?v=ndl1W4ltcmg","firstAired":"2019-12-20T08:00:00.000Z","runtime":60,"rating":8.5,"votes":2556,"language":"en","genres":["fantasy","science-fiction","drama"],"certification":"TV-MA","airedEpisodes":8,"images_url":{"poster":"https://image.tmdb.org/t/p/w300/zrPpUlehQaBf8YX2NrVrKK8IEpf.jpg","backdrop":"https://image.tmdb.org/t/p/w500/kysKBF2CJG9qfQDSCDaboJrkZy1.jpg","poster_original":"https://image.tmdb.org/t/p/original/zrPpUlehQaBf8YX2NrVrKK8IEpf.jpg","backdrop_original":"https://image.tmdb.org/t/p/original/kysKBF2CJG9qfQDSCDaboJrkZy1.jpg"},"status":"returning series","network":"Netflix","alternativeTitles":{"sa":"الساحر","bg":"Вещерът","cz":"Zaklínač","dk":"The Witcher","de":"The Witcher","gr":"Ο Γητευτής","us":"The Witcher","es":"The Witcher","mx":"The Witcher","ca":"The Witcher","fr":"The Witcher","il":"המכשף","hu":"Vaják","it":"The Witcher","kr":"위쳐","lt":"Raganius","nl":"The Witcher","pl":"Wiedźmin","br":"The Witcher","pt":"The Witcher","ro":"The Witcher","ru":"Ведьмак","sk":"Zaklínač","rs":"Вештац","se":"The Witcher","tr":"Cadı","ua":"Відьмак","cn":"猎魔人","tw":"獵魔士"},"originalTitle":"The Witcher"},"episode":{"traktSeasonNumber":1,"traktNumber":4,"absoluteNumber":4,"code":"S01E04","title":"Of Banquets, Bastards and Burials","imdbId":"tt8343772","tmdbId":1954614,"tvdbId":7428571,"traktId":3790232,"overview":"Against his better judgment, Geralt accompanies Jaskier to a royal ball. Ciri wanders into an enchanted forest. Yennefer tries to protect her charges.","firstAired":"2019-12-20T08:00:00.000Z","rating":8,"votes":2001,"runtime":60,"watched":false}}`
+    );
+
     this.loadPlugin();
   }
 
   loadPlugin() {
-    const show = JSON.parse(
-      `{"title":"Game of Thrones","year":2011,"imdbId":"tt0944947","tmdbId":1399,"tvdbId":121361,"traktId":1390,"slug":"game-of-thrones","overview":"Seven noble families fight for control of the mythical land of Westeros. Friction between the houses leads to full-scale war. All while a very ancient evil awakens in the farthest north. Amidst the war, a neglected military order of misfits, the Night's Watch, is all that stands between the realms of men and the icy horrors beyond.","trailer":"http://youtube.com/watch?v=bjqEWgDVPe0","firstAired":"2011-04-18T01:00:00.000Z","runtime":55,"rating":9.3,"votes":95218,"language":"en","genres":["drama","fantasy","science-fiction","action","adventure"],"certification":"TV-MA","airedEpisodes":73,"images_url":{"poster":"https://image.tmdb.org/t/p/w300/u3bZgnGQ9T01sWNhyveQz0wH0Hl.jpg","backdrop":"https://image.tmdb.org/t/p/w500/qsD5OHqW7DSnaQ2afwz8Ptht1Xb.jpg","poster_original":"https://image.tmdb.org/t/p/original/u3bZgnGQ9T01sWNhyveQz0wH0Hl.jpg","backdrop_original":"https://image.tmdb.org/t/p/original/qsD5OHqW7DSnaQ2afwz8Ptht1Xb.jpg"},"alternativeTitles":{"us":"Game of Thrones","fr":"Game of Thrones","ru":"Игра престолов","gr":"Game of Thrones","nl":"Game of Thrones","bg":"Игра на тронове","cn":"冰与火之歌","pl":"Gra o Tron","dk":"Game of Thrones","tr":"Game of Thrones","il":"משחקי הכס","de":"Game of Thrones","fi":"Game of Thrones","kr":"왕좌의 게임","se":"Game of Thrones","ua":"Гра Престолів","is":"Krúnuleikar","lt":"Sostų karai","hr":"Igra Prijestolja","bs":"Game of Thrones","pt":"A Guerra dos Tronos","hu":"Trónok harca","ir":"بازی تاج و تخت","id":"Game of Thrones","br":"Game of Thrones","lb":"Game of Thrones","vn":"Trò Chơi Vương Quyền","tw":"冰與火之歌：權力遊戲","sa":"صراع العروش","ca":"Le trône de fer","mx":"Juego de Tronos","rs":"Игра престола","it":"Il Trono di Spade","cz":"Hra o trůny","sk":"Hra o Tróny","es":"Juego de Tronos","ro":"Urzeala tronurilor","eo":"Ludo de Tronoj","th":"เกมส์ ออฟ โธรนส์ มหาศึกชิงบัลลังก์","no":"Game of Thrones","lv":"Troņu spēles","by":"Гульня тронаў","jp":"ゲーム・オブ・スローンズ","ge":"სამეფო კარის თამაშები","uz":"Taxtlar Oʻyini","in":"ഗെയിം ഓഫ് ത്രോൺസ്"},"originalTitle":"Game of Thrones"}`
-    ) as Show;
+    this.pluginLoader.createComponent('episodes', this.episodeVCRef, this.data);
 
-    const episode = JSON.parse(
-      `{"traktSeasonNumber":8,"traktNumber":5,"code":"S08E05","title":"The Bells","imdbId":"tt6027916","tmdbId":1551829,"tvdbId":7121404,"traktId":3465697,"overview":"Varys betrays his queen, and Daenerys brings her forces to King's Landing.","firstAired":"2019-05-13T01:00:00.000Z","rating":7.6,"votes":8097,"runtime":93,"watched":false}`
-    ) as Episode;
+    this.pluginLoader.createComponent('episodes-item-option', this.episodeItemOptionVCRef, this.data);
 
-    this.pluginLoader.createComponent('episodes', this.episodeVCRef, {
-      show,
-      episode
-    });
+    this.pluginLoader.createComponent('shows', this.showVCRef, this.data);
   }
 }

@@ -1,0 +1,25 @@
+ion-button {
+  background-color: #d26a1f !important;
+  border-radius: 5px;
+}
+.ion-item-options {
+  display: flex;
+  height: 100%;
+
+  .ion-item-detail {
+    width: 60px;
+    display: grid;
+    text-align: center;
+
+    ion-icon {
+      font-size: 2em;
+      width: 100%;
+    }
+
+    ion-text {
+      margin-top: 3px;
+      font-size: 8px;
+      text-transform: none;
+    }
+  }
+}

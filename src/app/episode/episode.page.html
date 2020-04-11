@@ -7,5 +7,20 @@
 </ion-header>
 
 <ion-content>
+  <h1>Episode Detail Page</h1>
   <ng-template #episodeRef></ng-template>
+
+  <h1>Episode Item Option</h1>
+  <p>Slide item to the left</p>
+  <ion-list>
+    <ion-item-sliding>
+      <ion-item>{{data.show.title + ' - ' + data.episode.code}}</ion-item>
+      <ion-item-options side="end">
+        <ng-template #episodeItemOptionRef></ng-template>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+  <h1>Show Detail Page</h1>
+  <ng-template #showRef></ng-template>
 </ion-content>
