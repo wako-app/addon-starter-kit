@@ -318,7 +318,7 @@
                   a['\u0275\u0275elementEnd']()),
                   2 & t &&
                     (a['\u0275\u0275advance'](1),
-                    a['\u0275\u0275textInterpolate2'](' My movie : ', e.movie.title, ' ', e.movie.traktId, '\n'));
+                    a['\u0275\u0275textInterpolate2'](' My movie : ', e.movie.title, ' ', e.movie.traktId, ' '));
               },
               directives: [i.IonButton],
               styles: ['ion-button[_ngcontent-%COMP%]{background-color:#d24f92!important;border-radius:5px}']
@@ -396,7 +396,7 @@
                   a['\u0275\u0275elementEnd']()),
                   2 & t &&
                     (a['\u0275\u0275advance'](1),
-                    a['\u0275\u0275textInterpolate2'](' Show : ', e.show.title, ' - Episode ', e.episode.code, '\n'));
+                    a['\u0275\u0275textInterpolate2'](' Show : ', e.show.title, ' - Episode ', e.episode.code, ' '));
               },
               directives: [i.IonButton],
               styles: ['ion-button[_ngcontent-%COMP%]{background-color:#d26a1f!important;border-radius:5px}']

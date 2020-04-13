@@ -29,7 +29,6 @@ const components = [
 @NgModule({
   imports: [CommonModule, FormsModule, IonicModule.forRoot(), TranslateModule.forRoot()],
   declarations: [...components],
-  entryComponents: [...components],
   providers: [PluginService, ToastService] // Add your services here. Do not use provideIn: 'root' in your services
 })
 export class PluginModule extends PluginBaseModule {
