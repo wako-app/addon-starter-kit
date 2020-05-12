@@ -5,7 +5,18 @@
   "name": "My First Plugin",
   "description": "Will make your life better",
   "author": "wako",
-  "actions": ["movies", "episodes", "episodes-item-option", "shows"],
+  "actions": [
+    "movies",
+    "episodes",
+    "episodes-item-option",
+    "shows",
+    "before-movie-middleware",
+    "after-movie-middleware",
+    "before-show-middleware",
+    "after-show-middleware",
+    "before-episode-middleware",
+    "after-episode-middleware"
+  ],
   "entryPointV2": "/plugin.js",
   "entryPoint": "https://raw.githubusercontent.com/wako-app/addon-starter-kit/wako3/dist/plugin.js",
   "languages": {

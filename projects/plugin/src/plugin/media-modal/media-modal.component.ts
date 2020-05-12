@@ -18,7 +18,7 @@ export class MediaModalComponent implements OnInit {
 
   ngOnInit() {
     this.toastService.simpleMessage('openMedia', {
-      imdbId: this.movie ? this.movie.imdbId : this.show.imdbId
+      imdbId: this.movie ? this.movie.ids.imdb : this.show.ids.imdb
     });
   }
 

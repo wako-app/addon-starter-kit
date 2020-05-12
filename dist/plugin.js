@@ -136,6 +136,8 @@
             Object(r.__extends)(e, t),
             (e.prototype.initialize = function () {
               u('plugin initialized');
+              var t = document.createElement('style');
+              (t.innerHTML = '\n      .rating-container {\n        background-color: grey\n      }\n    '), document.body.append(t);
             }),
             (e.prototype.afterInstall = function () {
               u('plugin installed');
@@ -147,6 +149,53 @@
               this.translate.setDefaultLang(t), this.translate.use(t), this.translate.setTranslation(t, e);
             }),
             (e.prototype.customAction = function (t, e) {}),
+            (e.prototype.beforeMovieMiddleware = function (t) {
+              return t.ratings.imdb && (t.ratings.imdb.imageUrl = 'https://eu.simkl.in/img_tv/ico-rating_imdb.png?v2'), Promise.resolve(t);
+            }),
+            (e.prototype.afterMovieMiddleware = function (t) {
+              return new Promise(function (e) {
+                setTimeout(function () {
+                  t.ratings.myMovieRating ||
+                    ((t.ratings.myMovieRating = {
+                      name: 'myMovieRating',
+                      url: 'https://trakt.tv/assets/logos/header@2x-09f929ba67b0964596b359f497884cd9.png',
+                      rating: 1,
+                      votes: 123
+                    }),
+                    e(t));
+                }, 3e3);
+              });
+            }),
+            (e.prototype.beforeShowMiddleware = function (t) {
+              return t.ratings.imdb && (t.ratings.imdb.imageUrl = 'https://eu.simkl.in/img_tv/ico_rating_simkl.png'), Promise.resolve(t);
+            }),
+            (e.prototype.afterShowMiddleware = function (t) {
+              return new Promise(function (e) {
+                setTimeout(function () {
+                  t.ratings.myShowRating ||
+                    ((t.ratings.myShowRating = {
+                      name: 'myShowRating',
+                      url: 'https://trakt.tv/assets/logos/header@2x-09f929ba67b0964596b359f497884cd9.png',
+                      rating: 3,
+                      votes: 456
+                    }),
+                    e(t));
+                }, 3e3);
+              });
+            }),
+            (e.prototype.beforeEpisodeMiddleware = function (t, e) {
+              return (
+                e.ratings.imdb &&
+                  (e.ratings.imdb.imageUrl =
+                    'https://www.rottentomatoes.com/assets/pizza-pie/images/icons/tomatometer/tomatometer-fresh.149b5e8adc3.svg'),
+                Promise.resolve(e)
+              );
+            }),
+            (e.prototype.afterEpisodeMiddleware = function (t, e) {
+              return (
+                'anime' === t.type && (e.imagesUrl.poster = 'https://simkl.in/posters/10/10361285fce228d8a_m.webp'), Promise.resolve(e)
+              );
+            }),
             (e.ɵfac = function (t) {
               return new (t || e)(a['\u0275\u0275inject'](c.TranslateService));
             }),
@@ -184,7 +233,7 @@
             a['\u0275\u0275listener']('click', function () {
               a['\u0275\u0275restoreView'](n);
               var t = a['\u0275\u0275nextContext']();
-              return t.openImdb(t.movie.imdbId);
+              return t.openImdb(t.movie.ids.imdb);
             }),
             a['\u0275\u0275text'](2, ' Open on Imdb '),
             a['\u0275\u0275elementEnd'](),
@@ -199,7 +248,7 @@
             a['\u0275\u0275listener']('click', function () {
               a['\u0275\u0275restoreView'](n);
               var t = a['\u0275\u0275nextContext']();
-              return t.openImdb(t.show.imdbId);
+              return t.openImdb(t.show.ids.imdb);
             }),
             a['\u0275\u0275text'](2, ' Open on Imdb '),
             a['\u0275\u0275elementEnd'](),
@@ -212,7 +261,7 @@
           }
           return (
             (t.prototype.ngOnInit = function () {
-              this.toastService.simpleMessage('openMedia', { imdbId: this.movie ? this.movie.imdbId : this.show.imdbId });
+              this.toastService.simpleMessage('openMedia', { imdbId: this.movie ? this.movie.ids.imdb : this.show.ids.imdb });
             }),
             (t.prototype.dismiss = function () {
               this.modalCtrl.dismiss();
@@ -283,7 +332,7 @@
             t
           );
         })(),
-        b = (function (t) {
+        m = (function (t) {
           function e(e) {
             var n = t.call(this) || this;
             return (n.modalCtrl = e), n;
@@ -318,7 +367,7 @@
                   a['\u0275\u0275elementEnd']()),
                   2 & t &&
                     (a['\u0275\u0275advance'](1),
-                    a['\u0275\u0275textInterpolate2'](' My movie : ', e.movie.title, ' ', e.movie.traktId, ' '));
+                    a['\u0275\u0275textInterpolate2'](' My movie : ', e.movie.title, ' ', e.movie.ids.trakt, ' '));
               },
               directives: [i.IonButton],
               styles: ['ion-button[_ngcontent-%COMP%]{background-color:#d24f92!important;border-radius:5px}']
@@ -326,7 +375,7 @@
             e
           );
         })(s.MovieDetailBaseComponent),
-        m = (function () {
+        b = (function () {
           function t(t) {
             this.translate = t;
           }
@@ -504,7 +553,7 @@
           },
           complete: function () {}
         },
-        I = (function () {
+        C = (function () {
           return (
             Array.isArray ||
             function (t) {
@@ -512,10 +561,10 @@
             }
           );
         })();
-      function C(t) {
+      function I(t) {
         return null !== t && 'object' == typeof t;
       }
-      var j = (function () {
+      var M = (function () {
           function t(t) {
             return (
               Error.call(this),
@@ -552,21 +601,21 @@
                   try {
                     r.call(this);
                   } catch (u) {
-                    e = u instanceof j ? P(u.errors) : [u];
+                    e = u instanceof M ? P(u.errors) : [u];
                   }
-                if (I(o)) {
+                if (C(o)) {
                   i = -1;
                   for (var s = o.length; ++i < s; ) {
                     var c = o[i];
-                    if (C(c))
+                    if (I(c))
                       try {
                         c.unsubscribe();
                       } catch (u) {
-                        (e = e || []), u instanceof j ? (e = e.concat(P(u.errors))) : e.push(u);
+                        (e = e || []), u instanceof M ? (e = e.concat(P(u.errors))) : e.push(u);
                       }
                   }
                 }
-                if (e) throw new j(e);
+                if (e) throw new M(e);
               }
             }),
             (t.prototype.add = function (e) {
@@ -613,10 +662,10 @@
         })();
       function P(t) {
         return t.reduce(function (t, e) {
-          return t.concat(e instanceof j ? e.errors : e);
+          return t.concat(e instanceof M ? e.errors : e);
         }, []);
       }
-      var M = (function () {
+      var j = (function () {
           return 'function' == typeof Symbol ? Symbol('rxSubscriber') : '@@rxSubscriber_' + Math.random();
         })(),
         T = (function (t) {
@@ -646,7 +695,7 @@
           }
           return (
             r.__extends(e, t),
-            (e.prototype[M] = function () {
+            (e.prototype[j] = function () {
               return this;
             }),
             (e.create = function (t, n, r) {
@@ -810,19 +859,19 @@
             e
           );
         })(T);
-      function V() {
+      function U() {
         return 'function' == typeof Symbol && Symbol.iterator ? Symbol.iterator : '@@iterator';
       }
-      var B = V(),
-        U = (function () {
+      var V = U(),
+        B = (function () {
           return ('function' == typeof Symbol && Symbol.observable) || '@@observable';
         })();
-      function A(t) {
+      function R(t) {
         return t;
       }
       function z(t) {
         return 0 === t.length
-          ? A
+          ? R
           : 1 === t.length
           ? t[0]
           : function (e) {
@@ -831,7 +880,7 @@
               }, e);
             };
       }
-      var F = (function () {
+      var A = (function () {
         function t(t) {
           (this._isScalar = !1), t && (this._subscribe = t);
         }
@@ -845,7 +894,7 @@
               o = (function (t, e, n) {
                 if (t) {
                   if (t instanceof T) return t;
-                  if (t[M]) return t[M]();
+                  if (t[j]) return t[j]();
                 }
                 return t || e || n ? new T(t, e, n) : new T(O);
               })(t, e, n);
@@ -881,7 +930,7 @@
           }),
           (t.prototype.forEach = function (t, e) {
             var n = this;
-            return new (e = R(e))(function (e, r) {
+            return new (e = F(e))(function (e, r) {
               var o;
               o = n.subscribe(
                 function (e) {
@@ -900,7 +949,7 @@
             var e = this.source;
             return e && e.subscribe(t);
           }),
-          (t.prototype[U] = function () {
+          (t.prototype[B] = function () {
             return this;
           }),
           (t.prototype.pipe = function () {
@@ -909,7 +958,7 @@
           }),
           (t.prototype.toPromise = function (t) {
             var e = this;
-            return new (t = R(t))(function (t, n) {
+            return new (t = F(t))(function (t, n) {
               var r;
               e.subscribe(
                 function (t) {
@@ -930,22 +979,22 @@
           t
         );
       })();
-      function R(t) {
+      function F(t) {
         if ((t || (t = S.Promise || Promise), !t)) throw new Error('no Promise impl found');
         return t;
       }
-      var Y = (function () {
+      var L = (function () {
           function t(t) {
             this.selector = t;
           }
           return (
             (t.prototype.call = function (t, e) {
-              return e.subscribe(new L(t, this.selector, this.caught));
+              return e.subscribe(new Y(t, this.selector, this.caught));
             }),
             t
           );
         })(),
-        L = (function (t) {
+        Y = (function (t) {
           function e(e, n, r) {
             var o = t.call(this, e) || this;
             return (o.selector = n), (o.caught = r), o;
@@ -965,14 +1014,14 @@
                 this.add(r);
                 var o = (function (t, e, n, r, o) {
                   if ((void 0 === o && (o = new H(t, void 0, void 0)), !o.closed))
-                    return e instanceof F
+                    return e instanceof A
                       ? e.subscribe(o)
                       : (function (t) {
-                          if (t && 'function' == typeof t[U])
+                          if (t && 'function' == typeof t[B])
                             return (
                               (i = t),
                               function (t) {
-                                var e = i[U]();
+                                var e = i[B]();
                                 if ('function' != typeof e.subscribe)
                                   throw new TypeError('Provided object does not correctly implement Symbol.observable');
                                 return e.subscribe(t);
@@ -1009,11 +1058,11 @@
                                 );
                               }
                             );
-                          if (t && 'function' == typeof t[B])
+                          if (t && 'function' == typeof t[V])
                             return (
                               (e = t),
                               function (t) {
-                                for (var n = e[B](); ; ) {
+                                for (var n = e[V](); ; ) {
                                   var r = n.next();
                                   if (r.done) {
                                     t.complete();
@@ -1035,7 +1084,7 @@
                             r,
                             o,
                             i,
-                            s = C(t) ? 'an invalid object' : "'" + t + "'";
+                            s = I(t) ? 'an invalid object' : "'" + t + "'";
                           throw new TypeError(
                             'You provided ' +
                               s +
@@ -1075,7 +1124,7 @@
                     );
                   }),
                   function (e) {
-                    var n = new Y(t),
+                    var n = new L(t),
                       r = e.lift(n);
                     return (n.caught = r);
                   })
@@ -1119,8 +1168,8 @@
           return (
             Object(r.__extends)(e, t),
             (e.pluginService = l),
-            (e.settingsComponent = m),
-            (e.movieComponent = b),
+            (e.settingsComponent = b),
+            (e.movieComponent = m),
             (e.episodeComponent = y),
             (e.episodeItemOptionComponent = _),
             (e.showComponent = Q),
