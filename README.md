@@ -54,6 +54,8 @@ There are two ways to test your add-on:
 ### Test your add-on on your phone
 
 Now that you think your add-on is completely finished, it's time to test it on your mobile. To do so, edit the file `package.json` and replace the `X.X.X.X` with your computer local IP.
-Then run this command: `npm run serve:wako-like`. This will act exactly as `npm run start:wako-like` but will make the project accessible via any devices in your local network.
-Then install the add-on inside wako via your manifest.json URL, like: `http://X.X.X.X:4200/assets/plugins/manifest.json` where `X.X.X.X` is your own IP address.
-`
+Then run this command: `npm run serve:wako-like`. This will act exactly as `npm run start:wako-like` but will make the project accessible to any devices in your local network.
+Then install the add-on inside wako using your manifest.json URL, like: `http://X.X.X.X:4200/assets/plugins/manifest.json` where `X.X.X.X` is your own IP address.
+
+When you're making changes in your code, you'll have to uninstall and install the plugin again to refresh changes into wako. This could be cumbersome. To avoid having to do that, enable debug mode in wako. Go into settings and click at least 8 times on the app version. You'll now have access to developer options where you can enable the "Show Reload Button" for add-ons. Each time you click on it, wako will reinstall all the installed add-ons for you and reload the page
+
