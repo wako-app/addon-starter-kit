@@ -1,10 +1,33 @@
 import { Injectable } from '@angular/core';
-import { Episode, Movie, PluginBaseService, Show } from '@wako-app/mobile-sdk';
 import { TranslateService } from '@ngx-translate/core';
+import {
+  Episode,
+  ExplorerFile,
+  ExplorerFolderItem,
+  KodiOpenParams,
+  Movie,
+  OpenMedia,
+  PluginBaseService,
+  Show,
+  WakoFileActionButton,
+} from '@wako-app/mobile-sdk';
 import { logData } from './tools';
 
 @Injectable()
 export class PluginService extends PluginBaseService {
+  fetchExplorerFolderItem(): Promise<ExplorerFolderItem | ExplorerFolderItem[]> {
+    throw new Error('Method not implemented.');
+  }
+  getFileActionButtons(
+    file: ExplorerFile,
+    title?: string,
+    posterUrl?: string,
+    seekTo?: number,
+    openMedia?: OpenMedia,
+    kodiOpenParams?: KodiOpenParams
+  ): Promise<WakoFileActionButton[]> {
+    throw new Error('Method not implemented.');
+  }
   constructor(protected translate: TranslateService) {
     super();
   }
@@ -52,7 +75,7 @@ export class PluginService extends PluginBaseService {
             name: 'myMovieRating',
             url: 'https://trakt.tv/assets/logos/header@2x-09f929ba67b0964596b359f497884cd9.png',
             rating: 1,
-            votes: 123
+            votes: 123,
           };
           resolve(movie);
         }
@@ -75,7 +98,7 @@ export class PluginService extends PluginBaseService {
             name: 'myShowRating',
             url: 'https://trakt.tv/assets/logos/header@2x-09f929ba67b0964596b359f497884cd9.png',
             rating: 3,
-            votes: 456
+            votes: 456,
           };
           resolve(show);
         }

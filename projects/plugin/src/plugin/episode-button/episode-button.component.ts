@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { Episode, EpisodeDetailBaseComponent, Show } from '@wako-app/mobile-sdk';
 import { ModalController } from '@ionic/angular';
+import { Episode, EpisodeDetailBaseComponent, Show } from '@wako-app/mobile-sdk';
 import { MediaModalComponent } from '../media-modal/media-modal.component';
 
 @Component({
   templateUrl: './episode-button.component.html',
-  styleUrls: ['./episode-button.component.scss']
+  styleUrls: ['./episode-button.component.scss'],
 })
 export class EpisodeButtonComponent extends EpisodeDetailBaseComponent {
   show: Show;
@@ -26,10 +26,10 @@ export class EpisodeButtonComponent extends EpisodeDetailBaseComponent {
         component: MediaModalComponent,
         componentProps: {
           show: this.show,
-          episode: this.episode
-        }
+          episode: this.episode,
+        },
       })
-      .then(modal => {
+      .then((modal) => {
         modal.present();
       });
   }

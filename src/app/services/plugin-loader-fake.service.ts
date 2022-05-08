@@ -1,28 +1,24 @@
-import { ComponentFactoryResolver, Injectable, Injector, ViewContainerRef } from '@angular/core';
-
+import { ComponentFactoryResolver, Injectable, Injector } from '@angular/core';
 import {
-  PluginAction,
   PluginBaseService,
   PluginDetail,
   PluginManifest,
   WakoBaseHttpService,
-  WakoPluginLoaderService
+  WakoPluginLoaderService,
 } from '@wako-app/mobile-sdk';
 import { forkJoin, from, of, throwError } from 'rxjs';
-
-import { Storage } from '@ionic/storage';
 import { catchError, mapTo, switchMap, tap } from 'rxjs/operators';
 import { PluginModule } from '../../../projects/plugin/src/plugin/plugin.module';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PluginLoaderFakeService extends WakoPluginLoaderService {
   constructor(cfr: ComponentFactoryResolver, injector: Injector) {
     super(cfr, injector);
   }
 
-  install(manifestUrl: string, lang: string, loadIt = true) {
+  override install(manifestUrl: string, lang: string, loadIt = true) {
     manifestUrl = manifestUrl.replace('/plugins/', '/');
     let pluginId = null;
     return WakoBaseHttpService.get<PluginManifest>(manifestUrl).pipe(
@@ -46,7 +42,9 @@ export class PluginLoaderFakeService extends WakoPluginLoaderService {
           pluginDetail.languages = {};
           const obss = [];
           Object.keys(manifest.languages).forEach((langKey) => {
-            const langUrl = manifest.languages[langKey].match('http') ? manifest.languages[langKey] : baseUrl + manifest.languages[langKey];
+            const langUrl = manifest.languages[langKey].match('http')
+              ? manifest.languages[langKey]
+              : baseUrl + manifest.languages[langKey];
 
             const obs = WakoBaseHttpService.get(langUrl).pipe(
               catchError((err) => {
@@ -82,7 +80,7 @@ export class PluginLoaderFakeService extends WakoPluginLoaderService {
     );
   }
 
-  protected load<T>(pluginId: string, lang: string, isFirstLoad: boolean) {
+  protected override load<T>(pluginId: string, lang: string, isFirstLoad: boolean) {
     return from(this.getPluginDetail(pluginId)).pipe(
       tap((pluginDetail) => {
         const moduleType = PluginModule;
@@ -92,7 +90,7 @@ export class PluginLoaderFakeService extends WakoPluginLoaderService {
         this.pluginModuleMap.set(pluginDetail.manifest.id, {
           pluginDetail,
           moduleType: moduleType,
-          injector: null
+          injector: null,
         });
 
         pluginService.initialize();
@@ -106,41 +104,11 @@ export class PluginLoaderFakeService extends WakoPluginLoaderService {
     );
   }
 
-  getPluginService(pluginId: string): any {
+  override getPluginService(pluginId: string): any {
     const plugin = this.pluginModuleMap.get(pluginId);
     if (plugin) {
       return this.injector.get(plugin.moduleType.pluginService) as PluginBaseService;
     }
     return null;
   }
-
-  // createComponent(action: PluginAction, viewContainerRef: ViewContainerRef, data?: any) {
-  //   return super.createComponent(action, viewContainerRef, data);
-  //   // this.pluginModuleMap.forEach(pluginMap => {
-  //   //   const moduleType = PluginModule;
-  //   //
-  //   //   if (action === 'movies' && pluginMap.pluginDetail.manifest.actions.includes(action) && moduleType.movieComponent) {
-  //   //     const compFactory = this.cfr.resolveComponentFactory<MovieDetailBaseComponent>(moduleType.movieComponent);
-  //   //     const movieComponent = viewContainerRef.createComponent<MovieDetailBaseComponent>(compFactory);
-  //   //
-  //   //     movieComponent.instance.setMovie(data.movie);
-  //   //   } else if (action === 'shows' && pluginMap.pluginDetail.manifest.actions.includes(action) && moduleType.showComponent) {
-  //   //     const compFactory = this.cfr.resolveComponentFactory<ShowDetailBaseComponent>(moduleType.showComponent);
-  //   //     const episodeComponent = viewContainerRef.createComponent<ShowDetailBaseComponent>(compFactory);
-  //   //
-  //   //     episodeComponent.instance.setShowEpisode(data.show, data.episode);
-  //   //   } else if (action === 'episodes' && pluginMap.pluginDetail.manifest.actions.includes(action) && moduleType.episodeComponent) {
-  //   //     const compFactory = this.cfr.resolveComponentFactory<EpisodeDetailBaseComponent>(moduleType.episodeComponent);
-  //   //     const episodeComponent = viewContainerRef.createComponent<EpisodeDetailBaseComponent>(compFactory);
-  //   //
-  //   //     episodeComponent.instance.setShowEpisode(data.show, data.episode);
-  //   //   } else if (action === 'settings' && moduleType.settingsComponent) {
-  //   //     const compFactory = this.cfr.resolveComponentFactory<any>(moduleType.settingsComponent);
-  //   //     viewContainerRef.createComponent<any>(compFactory);
-  //   //   } else if (action === 'plugin-detail' && moduleType.pluginDetailComponent) {
-  //   //     const compFactory = this.cfr.resolveComponentFactory<any>(moduleType.pluginDetailComponent);
-  //   //     viewContainerRef.createComponent<any>(compFactory);
-  //   //   }
-  //   // });
-  // }
 }

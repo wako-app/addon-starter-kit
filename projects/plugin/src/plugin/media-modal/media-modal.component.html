@@ -14,14 +14,54 @@
 <ion-content>
   <ion-card>
     <ion-card-content *ngIf="movie">
-      <ion-button (click)="openImdb(movie.ids.imdb)">
-        Open on Imdb
-      </ion-button>
+      <ion-button (click)="openImdb(movie.ids.imdb)"> Open on Imdb </ion-button>
     </ion-card-content>
     <ion-card-content *ngIf="show">
-      <ion-button (click)="openImdb(show.ids.imdb)">
-        Open on Imdb
-      </ion-button>
+      <ion-button (click)="openImdb(show.ids.imdb)"> Open on Imdb </ion-button>
     </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-content>
+      <form (ngSubmit)="saveHost()" [formGroup]="formHost">
+        <ion-item>
+          <ion-label position="floating">Host</ion-label>
+          <ion-input type="text" name="host" formControlName="host" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Port</ion-label>
+          <ion-input type="number" name="port" formControlName="port" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Login</ion-label>
+          <ion-input type="text" name="login" formControlName="login"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Password</ion-label>
+          <ion-input type="password" name="password" formControlName="password"></ion-input>
+        </ion-item>
+
+        <ion-button expand="block" [disabled]="!formHost.valid" block type="submit">
+          <ion-icon slot="start" name="save-outline"></ion-icon>
+          Save Host
+        </ion-button>
+      </form>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-item>
+      <ion-label position="floating">Url</ion-label>
+      <ion-input
+        value="https://archive.org/download/BigBuckBunny_328/BigBuckBunny_512kb.mp4"
+        type="text"
+        #urlInput
+        required
+      ></ion-input>
+    </ion-item>
+
+    <ion-button expand="block" (click)="openUrlOnKodi(urlInput.value)" block type="submit">
+      <ion-icon slot="start "></ion-icon>
+      Open Url On Kodi
+    </ion-button>
   </ion-card>
 </ion-content>

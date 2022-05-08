@@ -5,7 +5,7 @@ import { PluginLoaderService } from '../services/plugin-loader.service';
 @Component({
   selector: 'app-tab1',
   templateUrl: 'movie.page.html',
-  styleUrls: ['movie.page.scss']
+  styleUrls: ['movie.page.scss'],
 })
 export class MoviePage implements OnInit {
   @ViewChild('movieRef', { read: ViewContainerRef, static: true })
@@ -16,12 +16,12 @@ export class MoviePage implements OnInit {
   constructor(private pluginLoader: PluginLoaderService) {}
 
   ngOnInit() {
-    const movie = JSON.parse(
-      `{"relatedIds":[],"title":"Captain Marvel","year":2019,"imdbId":"tt4154664","tmdbId":299537,"traktId":193963,"trailer":"http://youtube.com/watch?v=Z1BCujX3pw8","certification":"PG-13","tagline":"Higher. Further. Faster.","overview":"The story follows Carol Danvers as she becomes one of the universe’s most powerful heroes when Earth is caught in the middle of a galactic war between two alien races. Set in the 1990s, Captain Marvel is an all-new adventure from a previously unseen period in the history of the Marvel Cinematic Universe.","released":"2019-03-08","runtime":124,"rating":7.6,"votes":15204,"language":"en","genres":["science-fiction","action","adventure","superhero"],"images_url":{"poster":"https://image.tmdb.org/t/p/w300/AtsgWhDnHTq68L0lLsUrCnM7TjG.jpg","backdrop":"https://image.tmdb.org/t/p/w500/w2PMyoyLU22YvrGK3smVM9fW1jj.jpg","poster_original":"https://image.tmdb.org/t/p/original/AtsgWhDnHTq68L0lLsUrCnM7TjG.jpg","backdrop_original":"https://image.tmdb.org/t/p/original/w2PMyoyLU22YvrGK3smVM9fW1jj.jpg"},"alternativeTitles":{"us":"Captain Marvel","ru":"Капитан Марвел","pt":"Captain Marvel (Capitão Marvel)","es":"Capitana Marvel","pl":"Kapitan Marvel","it":"Captain Marvel","de":"Captain Marvel","fr":"Captain Marvel","cz":"Captain Marvel","gr":"Κάπτεν Μάρβελ","mx":"Capitana Marvel","tr":"Kaptan Marvel","kr":"캡틴 마블","bg":"Капитан Марвел","tw":"驚奇隊長","il":"קפטן מארוול","ua":"Капітан Марвел","hu":"Marvel Kapitány","br":"Capitã Marvel","uz":"Kapitan Marvel","dk":"Captain Marvel","cn":"惊奇队长","hk":"Marvel隊長","ge":"კაპიტანი მარველი","sk":"Captain Marvel","se":"Captain Marvel","rs":"Капетан Марвел","nl":"Captain Marvel","sa":"كابتن مارفل","jp":"キャプテン・マーベル","ro":"Captain Marvel","hr":"Kapetanica Marvel","vn":"Đại Úy Marvel","lv":"Kapteine Mārvela","ca":"Capitaine Marvel","lt":"Kapitonė Marvel","ae":"Captain Marvel","ir":"کاپیتان مارول","by":"Капітан Марвел","th":"กัปตัน มาร์เวล","et":"Kapten Marvel","id":"Captain Marvel","fi":"Captain Marvel"},"originalTitle":"Captain Marvel"}`
+    const data = JSON.parse(
+      `{"movie":{"provider":"trakt","type":"movie","ids":{"trakt":5573,"slug":"big-buck-bunny-2008","imdb":"tt1254207","tmdb":10378},"title":"Big Buck Bunny","overview":"Follow a day of the life of Big Buck Bunny when he meets three bullying rodents: Frank, Rinky, and Gamera. The rodents amuse themselves by harassing helpless creatures by throwing fruits, nuts and rocks at them. After the deaths of two of Bunny's favorite butterflies, and an offensive attack on Bunny himself, Bunny sets aside his gentle nature and orchestrates a complex plan for revenge.","imagesUrl":{"poster":"https://image.tmdb.org/t/p/w342/i9jJzvoXET4D9pOkoEwncSdNNER.jpg","backdrop":"https://image.tmdb.org/t/p/w500/xtdybjRRZ15mCrPOvEld305myys.jpg","posterOriginal":"https://image.tmdb.org/t/p/original/i9jJzvoXET4D9pOkoEwncSdNNER.jpg","backdropOriginal":"https://image.tmdb.org/t/p/original/xtdybjRRZ15mCrPOvEld305myys.jpg"},"year":2008,"certification":"G","runtime":8,"genres":["animation","comedy","family"],"alternativeTitles":{"cz":"Králíkova pomsta","us":"Big Buck Bunny","ro":"Iepurașul mare","ru":"Большой Бак","cn":"大雄兔"},"originalTitle":"Big Buck Bunny","ratings":{"imdb":{"name":"IMDb","url":"https://imdb.com/title/tt1254207","rating":null,"votes":null},"trakt":{"name":"Trakt","url":"https://trakt.tv/movies/5573","rating":7,"votes":446}},"rating":7,"votes":446,"status":"Released","released":"2008-04-10","relatedImdbIds":[],"trailer":"http://youtube.com/watch?v=yUQM7H4Swgw","language":"en","tagline":"","images_url":{"poster":"https://image.tmdb.org/t/p/w342/i9jJzvoXET4D9pOkoEwncSdNNER.jpg","backdrop":"https://image.tmdb.org/t/p/w500/xtdybjRRZ15mCrPOvEld305myys.jpg","posterOriginal":"https://image.tmdb.org/t/p/original/i9jJzvoXET4D9pOkoEwncSdNNER.jpg","backdropOriginal":"https://image.tmdb.org/t/p/original/xtdybjRRZ15mCrPOvEld305myys.jpg"},"imdbId":"tt1254207","traktId":5573,"tmdbId":10378}}`
     );
 
     this.data = {
-      movie
+      movie: data.movie,
     };
 
     this.loadPlugin();

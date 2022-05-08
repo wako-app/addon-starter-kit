@@ -1,13 +1,12 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
-
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
-
+import { IonicStorageModule } from '@ionic/storage-angular';
+import { TranslateModule } from '@ngx-translate/core';
+import { WakoProviders } from '@wako-app/mobile-sdk';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { TranslateModule } from '@ngx-translate/core';
-import { IonicStorageModule } from '@ionic/storage';
 
 @NgModule({
   declarations: [AppComponent],
@@ -16,13 +15,15 @@ import { IonicStorageModule } from '@ionic/storage';
     IonicModule.forRoot({
       swipeBackEnabled: true,
       backButtonText: '',
-      mode: 'md'
+      mode: 'md',
     }),
     AppRoutingModule,
     TranslateModule.forRoot(),
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot({
+      name: 'wako',
+    }),
   ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
-  bootstrap: [AppComponent]
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, ...WakoProviders],
+  bootstrap: [AppComponent],
 })
 export class AppWakoLikeModule {}
