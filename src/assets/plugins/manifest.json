@@ -17,7 +17,8 @@
     "before-episode-middleware",
     "after-episode-middleware"
   ],
-  "entryPointV2": "/plugin.js",
+  "entryPointV2": "https://raw.githubusercontent.com/wako-app/addon-starter-kit/wako5/dist/plugin.js",
+  "entryPointV3": "/plugin.js",
   "languages": {
     "en": "/i18n/en.json",
     "fr": "/i18n/fr.json"

@@ -70,7 +70,7 @@ export class MediaModalComponent implements OnInit {
     KodiAppService.setCurrentHost({
       name: 'WakoAddonStarterKit',
       host: this.formHost.value.host,
-      port: this.formHost.value.port,
+      port: +this.formHost.value.port,
       login: this.formHost.value.login,
       password: this.formHost.value.password,
       uuid: 'WakoAddonStarterKit',

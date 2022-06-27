@@ -1,4 +1,4 @@
-import { ComponentFactoryResolver, Injectable, Injector } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import {
   PluginBaseService,
   PluginDetail,
@@ -14,8 +14,8 @@ import { PluginModule } from '../../../projects/plugin/src/plugin/plugin.module'
   providedIn: 'root',
 })
 export class PluginLoaderFakeService extends WakoPluginLoaderService {
-  constructor(cfr: ComponentFactoryResolver, injector: Injector) {
-    super(cfr, injector);
+  constructor(injector: Injector) {
+    super(injector);
   }
 
   override install(manifestUrl: string, lang: string, loadIt = true) {
@@ -90,7 +90,7 @@ export class PluginLoaderFakeService extends WakoPluginLoaderService {
         this.pluginModuleMap.set(pluginDetail.manifest.id, {
           pluginDetail,
           moduleType: moduleType,
-          injector: null,
+          moduleRef: null,
         });
 
         pluginService.initialize();

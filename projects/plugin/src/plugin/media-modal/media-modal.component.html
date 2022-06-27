@@ -1,8 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>
-      {{ movie ? movie.title : show.title + ' ' + episode.code }}
-    </ion-title>
+    <ion-title> V3 {{ movie ? movie.title : show.title + ' ' + episode.code }} </ion-title>
     <ion-buttons slot="end">
       <ion-button color="light" (click)="dismiss()">
         <ion-icon name="close"></ion-icon>
@@ -17,7 +15,7 @@
       <ion-button (click)="openImdb(movie.ids.imdb)"> Open on Imdb </ion-button>
     </ion-card-content>
     <ion-card-content *ngIf="show">
-      <ion-button (click)="openImdb(show.ids.imdb)"> Open on Imdb </ion-button>
+      <ion-button (click)="openImdb(show.ids.imdb)"> {{ 'openImdb' | translate }} </ion-button>
     </ion-card-content>
   </ion-card>
   <ion-card>
