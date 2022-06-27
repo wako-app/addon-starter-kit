@@ -90,7 +90,6 @@ export class PluginLoaderFakeService extends WakoPluginLoaderService {
         this.pluginModuleMap.set(pluginDetail.manifest.id, {
           pluginDetail,
           moduleType: moduleType,
-          moduleRef: null,
         });
 
         pluginService.initialize();
