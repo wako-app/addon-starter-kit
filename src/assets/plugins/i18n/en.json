@@ -1,7 +1,0 @@
-{
-  "openMedia": "Test Toast - Media {{imdbId}}",
-  "settings": {
-    "title": "My Plugin - Settings"
-  },
-  "openImdb": "Open on Imdb"
-}
